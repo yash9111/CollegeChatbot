@@ -1,3 +1,5 @@
+import 'package:bot/gptGenerated.dart';
+import 'package:bot/handle_popup.dart';
 import 'package:flutter/material.dart';
 
 import 'chatScreen.dart';
@@ -14,10 +16,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         title: 'Server Request',
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: const chatScreen());
+        home:  PopupScreen());
   }
 }
 
@@ -51,7 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text('Server Request'),
       ),
-      body: chatScreen(),
+      body: ChatGPTScreen(),
     );
   }
 

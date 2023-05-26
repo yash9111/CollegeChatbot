@@ -1,5 +1,9 @@
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+
 import 'package:bot/chat_widget.dart';
 import 'package:bot/constants.dart';
+import 'package:bot/feedform_screen.dart';
+import 'package:bot/gptGenerated.dart';
 import 'package:bot/server.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -52,52 +56,146 @@ class _chatScreenState extends State<chatScreen> {
   @override
   Widget build(BuildContext context) {
     // TextEditingController controller = TextEditingController();
+    return mainScreenModel();
+  }
+
+  Scaffold mainScreenModel() {
     return Scaffold(
-      backgroundColor: Colors.grey,
+      backgroundColor: Color.fromRGBO(50, 41, 41, 100),
       appBar: AppBar(
-        leading: Icon(Icons.ac_unit_outlined),
-        title: Text("ITM"),
-      ),
-      body: SafeArea(
-          child: Column(
-        children: [
-          Flexible(
-              child: ListView.builder(
-            itemBuilder: (context, index) {
-              return chatWidget(
-                msg: chatMessages[index].text,
-                chatIndex: (chatMessages[index].isBot),
-                //  msg: chatMessages[index],
-              );
+        // leading: Icon(
+        //   Icons.ac_unit_outlined,
+        //   color: Colors.blue,
+        // ),
+        // ignore: prefer_const_constructors
+        title: Center(
+          child: Text(
+            "Institute of Technology and Management",
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+          ),
+        ),
+
+        backgroundColor: Colors.black,
+
+        actions: [
+          PopupMenuButton<String>(
+            onSelected: (value) {
+              // Handle menu item selection here
+              if (value == 'menu_option_1') {
+                // Do something for menu option 1
+                Navigator.push(context, MaterialPageRoute(
+                  builder: (context) {
+                    return FeedbackForm();
+                  },
+                ));
+              } else if (value == 'menu_option_2') {
+                // Do something for menu option 2
+              }
             },
-            itemCount: chatMessages.length,
-          )),
-          if (isTyping) ...[
-            SpinKitChasingDots(
-              color: Colors.red,
-              size: 20,
+            itemBuilder: (BuildContext context) => [
+              PopupMenuItem<String>(
+                value: 'menu_option_1',
+                child: Text('Feedback'),
+              ),
+              PopupMenuItem<String>(
+                value: 'menu_option_2',
+                child: Text('About us'),
+              ),
+            ],
+          ),
+        ],
+      ),
+      body: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 3,
+              blurRadius: 7,
+              offset: Offset(0, 3),
             ),
           ],
-          Row(
-            children: [
-              Expanded(
-                  child: TextField(
-                controller: controller,
-                decoration: InputDecoration(
-                    hintText: "Please type here ",
-                    hintStyle: TextStyle(color: Colors.black, fontSize: 20)),
-              )),
-              IconButton(
-                onPressed: () {
-                  _handleButtonPress();
-                  setState(() {});
-                },
-                icon: Icon(Icons.send),
-              )
+        ),
+        child: SafeArea(
+            child: Column(
+          children: [
+            Flexible(
+                child: ListView.builder(
+              itemBuilder: (context, index) {
+                return chatWidget(
+                  msg: chatMessages[index].text,
+                  chatIndex: (chatMessages[index].isBot),
+                  //  msg: chatMessages[index],
+                );
+              },
+              itemCount: chatMessages.length,
+            )),
+            if (isTyping) ...[
+              SpinKitDualRing(
+                color: Colors.red,
+                size: 20,
+              ),
             ],
-          )
-        ],
-      )),
+            SafeArea(
+              child: Stack(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.all(8),
+                    child: Expanded(
+                        child: TextField(
+                      keyboardType: TextInputType.multiline,
+                      maxLines: 10,
+                      // maxLength: 1000,
+                      minLines: 1,
+                      autofillHints: ["Hey", "Hello", "How are you"],
+                      cursorColor: Colors.black,
+                      controller: controller,
+                      style: TextStyle(color: Colors.black, fontSize: 20),
+                      onSubmitted: (value) {
+                        _handleButtonPress();
+                        controller.clear();
+                      },
+                      decoration: InputDecoration(
+                          // enabledBorder: OutlineInputBorder(
+                          //     borderSide: BorderSide(
+                          //       width: 0,
+                          //       color: Colors.blue,
+                          //     ),
+                          //     borderRadius: BorderRadius.circular(10)),
+                          hintText: "Please type here ",
+                          hintStyle:
+                              TextStyle(color: Colors.black, fontSize: 20),
+                          filled: true,
+                          contentPadding: EdgeInsets.fromLTRB(10.0, 0, 50, 0),
+                          fillColor: Colors.white),
+                      textInputAction: TextInputAction.send,
+                      autofocus: true,
+                    )),
+                  ),
+                  Positioned(
+                    top: 10,
+                    right: 20,
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(30, 0, 0, 0),
+                      child: IconButton(
+                          onPressed: () {
+                            _handleButtonPress();
+                            controller.clear();
+                            setState(() {});
+                          },
+                          icon: Icon(Icons.send)),
+                    ),
+                  )
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            )
+          ],
+        )),
+      ),
     );
   }
 

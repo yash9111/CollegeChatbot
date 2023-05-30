@@ -123,10 +123,13 @@ class _chatScreenState extends State<chatScreen> {
             Flexible(
                 child: ListView.builder(
               itemBuilder: (context, index) {
-                return chatWidget(
-                  msg: chatMessages[index].text,
-                  chatIndex: (chatMessages[index].isBot),
-                  //  msg: chatMessages[index],
+                return Align(
+                  alignment: chatMessages[index].isBot ==0 ? Alignment.topLeft:Alignment.topRight,
+                  child: chatWidget(
+                    msg: chatMessages[index].text,
+                    chatIndex: (chatMessages[index].isBot),
+                    //  msg: chatMessages[index],
+                  ),
                 );
               },
               itemCount: chatMessages.length,

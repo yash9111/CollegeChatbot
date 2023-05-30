@@ -1,4 +1,6 @@
+import 'package:bot/FinalChatScreen.dart';
 import 'package:bot/chatScreen.dart';
+import 'package:bot/dummyWebPage.dart';
 import 'package:flutter/material.dart';
 
 class PopupScreen extends StatefulWidget {
@@ -17,7 +19,7 @@ class _PopupScreenState extends State<PopupScreen>
     super.initState();
     _animationController = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 300),
+      duration: Duration(milliseconds: 400),
     );
     _scaleAnimation =
         Tween<double>(begin: 0.0, end: 1.0).animate(_animationController);
@@ -50,14 +52,12 @@ class _PopupScreenState extends State<PopupScreen>
       body: Stack(
         children: [
           // Background content
-          Container(
-            color: Colors.white, // Replace with your desired background color
-          ),
+          dummyScreen(),
 
           // Popup screen
           Positioned(
-            left: screenWidth * 0.25, // Starting from 25% of the screen width
-            right: screenWidth * 0.25, // Ending at 25% of the screen width
+            left: screenWidth * 0.5, // Starting from 25% of the screen width
+            right: screenWidth * 0.09, // Ending at 25% of the screen width
             top: _isOpen ? (screenHeight - popupHeight) / 2 : screenHeight,
             height: popupHeight,
             // width: 500,
@@ -76,17 +76,30 @@ class _PopupScreenState extends State<PopupScreen>
                         ),
                       ]),
 
-                  child: chatScreen(),
+                  child: ChatScreen(),
                 )),
           ),
 
           // Floating action button
           Positioned(
-            right: 16,
-            bottom: 16,
-            child: FloatingActionButton(
-              onPressed: _togglePopup,
-              child: Icon(Icons.chat),
+            right: 50,
+            bottom: 50,
+            child: Tooltip(
+              message: "How can i help you ?",
+              textStyle: TextStyle(color: Colors.black),
+              preferBelow: false,
+              excludeFromSemantics: true,
+              height: 30,
+              margin: EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8),
+                color: Colors.grey.shade300,
+              ),
+              child: FloatingActionButton(
+                onPressed: _togglePopup,
+                backgroundColor: Color.fromARGB(255, 141, 39, 41),
+                child: Icon(Icons.chat),
+              ),
             ),
           ),
         ],

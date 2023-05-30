@@ -43,12 +43,18 @@ class _chatWidgetState extends State<chatWidget> {
       child: Align(
         alignment:
             widget.chatIndex == 0 ? Alignment.topRight : Alignment.topLeft,
-        child: Material(
-          elevation: 5,
-          borderRadius: BorderRadius.all(Radius.circular(10)),
-          color: widget.chatIndex == 0
-              ? const Color.fromRGBO(51, 50, 48, 10)
-              : Colors.blueGrey.shade800,
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(10)),
+            color: widget.chatIndex == 0
+                ? const Color.fromRGBO(51, 50, 48, 10)
+                : Colors.blueGrey.shade800,
+          ),
+          // elevation: 5,
+          // borderRadius: BorderRadius.all(Radius.circular(10)),
+          // color: widget.chatIndex == 0
+          //     ? const Color.fromRGBO(51, 50, 48, 10)
+          //     : Colors.blueGrey.shade800,
           child: Column(
             children: [
               Padding(

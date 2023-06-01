@@ -14,7 +14,8 @@ class _dummyScreenState extends State<dummyScreen> {
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('assest/bg.png'), // Replace with your image path
+            image: AssetImage(
+                'assest/images/bg.png'), // Replace with your image path
             fit: BoxFit.cover,
           ),
         ),

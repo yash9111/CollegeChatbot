@@ -1,16 +1,16 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
-import 'package:bot/chat_widget.dart';
-import 'package:bot/constants.dart';
-import 'package:bot/feedform_screen.dart';
-import 'package:bot/gptGenerated.dart';
-import 'package:bot/server.dart';
+import 'package:bot/Structure/chat_widget.dart';
+import 'package:bot/Structure/constants.dart';
+import 'package:bot/Screens/feedform_screen.dart';
+
+import 'package:bot/Server/server.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
-import 'data_cleaner.dart';
-import 'messages.dart';
+import '../Structure/data_cleaner.dart';
+import '../Structure/messages.dart';
 
 class chatScreen extends StatefulWidget {
   const chatScreen({super.key});

@@ -1,8 +1,8 @@
-import 'package:bot/gptGenerated.dart';
-import 'package:bot/handle_popup.dart';
+import 'package:bot/Structure/handle_popup.dart';
 import 'package:flutter/material.dart';
 
-import 'chatScreen.dart';
+import 'Screens/FinalChatScreen.dart';
+import 'Screens/chatScreen.dart';
 
 void main() async {
   // WidgetsFlutterBinding.ensureInitialized();
@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home:  PopupScreen());
+        home: PopupScreen());
   }
 }
 
@@ -54,7 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text('Server Request'),
       ),
-      body: ChatGPTScreen(),
+      body: PopupScreen(),
     );
   }
 

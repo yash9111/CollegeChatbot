@@ -1,17 +1,12 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:bot/server.dart';
+import 'package:bot/Server/server.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
-import 'data_cleaner.dart';
-import 'messages.dart';
-
-// enum MessageSender {
-//   User,
-//   Bot,
-// }
+import '../Structure/data_cleaner.dart';
+import '../Structure/messages.dart';
 
 class ChatScreen extends StatefulWidget {
   @override
@@ -23,11 +18,10 @@ class _ChatScreenState extends State<ChatScreen> {
   String result = '';
   var controller = TextEditingController();
   String message = '';
+  bool isAnimating = false;
   List<Message> chatMessages = [];
   Message m = Message(isBot: 1, text: "Hey , welcome to ITM.");
-  Message m1 = Message(
-      isBot: 1, text: "Try asking:.:\n about placements ?\n about college ");
-  ScrollController _scrollController = ScrollController();
+  String enteredMessag = "";
   void _handleButtonPress() {
     String recivedMessage = controller.text.toString();
     Message userMessageObj = Message(isBot: 0, text: recivedMessage);
@@ -36,14 +30,14 @@ class _ChatScreenState extends State<ChatScreen> {
       chatMessages.add(userMessageObj);
       isTyping = false;
     });
-
     isTyping = true;
-    sendRequest(controller.text.toString()).then((value) {
+    sendRequest(enteredMessag).then((value) {
       setState(() {
         controller.clear();
         result = '';
       });
       message = data_cleaner(value);
+      // message = value;
       result = message;
       setState(() {
         chatMessages.add(Message(isBot: 1, text: result));
@@ -55,25 +49,20 @@ class _ChatScreenState extends State<ChatScreen> {
         result = 'Error: $error';
       });
     });
+    print(message);
   }
 
   @override
   void initState() {
     chatMessages.add(m);
-    // chatMessages.add(m1);
+    chatMessages.add(Message(
+        isBot: 1,
+        text:
+            "You can ask me about many things such as ....\n1.Admission process\n2.Documents Required\n3.Placements\n4.About college\n5.Branches available",
+        avatar: false));
+
     super.initState();
   }
-
-  // void _handleKeyboardEvent(RawKeyEvent event) {
-  //   if (event.logicalKey == LogicalKeyboardKey.enter &&
-  //       event.runtimeType == RawKeyDownEvent) {
-  //     // Enter key is pressed
-  //     if (controller.text.trim().isNotEmpty) {
-  //       _handleButtonPress(); // Send the message
-  //       controller.clear(); // Clear the text field
-  //     }
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -108,10 +97,15 @@ class _ChatScreenState extends State<ChatScreen> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       if (message.isBot == 1) ...[
-                        CircleAvatar(
-                          backgroundColor: Colors.white,
-                          backgroundImage: AssetImage('assest/bot.png'),
-                        ),
+                        message.avatar
+                            ? CircleAvatar(
+                                backgroundColor: Colors.white,
+                                backgroundImage:
+                                    AssetImage('assest/images/itmLogo.png'),
+                              )
+                            : SizedBox(
+                                width: 38,
+                              ),
                         SizedBox(width: 8.0),
                       ],
                       // CircleAvatar(
@@ -145,7 +139,8 @@ class _ChatScreenState extends State<ChatScreen> {
                         SizedBox(width: 8.0),
                         CircleAvatar(
                           backgroundColor: Colors.white,
-                          backgroundImage: AssetImage('assest/user.png'),
+                          backgroundImage:
+                              AssetImage('assest/images/userImage.jpg'),
                         ),
                       ],
                     ],
@@ -201,6 +196,21 @@ class _ChatScreenState extends State<ChatScreen> {
                     minLines: 1,
                     maxLines: 10,
                     onSubmitted: (value) {
+                      if (controller.text.toString() == "1") {
+                        enteredMessag = "Tell me about Admission Process";
+                      } else if (controller.text.toString() == "2") {
+                        enteredMessag =
+                            "Documents required for admission process";
+                      } else if (controller.text.toString() == "3") {
+                        enteredMessag = "What about the placement in itm ";
+                      } else if (controller.text.toString() == "4") {
+                        enteredMessag = "Tell me something about itm ";
+                      } else if (controller.text.toString() == "5") {
+                        enteredMessag =
+                            "What are the branches available in itm";
+                      } else {
+                        enteredMessag = controller.text.toString();
+                      }
                       _handleButtonPress();
                       controller.clear();
                     },
@@ -250,10 +260,3 @@ class _ChatScreenState extends State<ChatScreen> {
     );
   }
 }
-
-// class Message {
-//   final MessageSender sender;
-//   final String text;
-
-//   Message({required this.sender, required this.text});
-// }

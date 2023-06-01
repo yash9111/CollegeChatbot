@@ -1,6 +1,6 @@
-import 'package:bot/FinalChatScreen.dart';
-import 'package:bot/chatScreen.dart';
-import 'package:bot/dummyWebPage.dart';
+import 'package:bot/Screens/FinalChatScreen.dart';
+import 'package:bot/Screens/chatScreen.dart';
+import 'package:bot/Screens/dummyWebPage.dart';
 import 'package:flutter/material.dart';
 
 class PopupScreen extends StatefulWidget {

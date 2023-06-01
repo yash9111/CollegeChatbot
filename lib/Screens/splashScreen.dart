@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:bot/chatScreen.dart';
+import 'package:bot/Screens/chatScreen.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {

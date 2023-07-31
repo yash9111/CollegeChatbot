@@ -1,0 +1,5 @@
+gradio==2.0.6
+flask==2.0.1
+gradio-client==1.0.7
+gpt-index==1.0.0
+langchain==1.0.0

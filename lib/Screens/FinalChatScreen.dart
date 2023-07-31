@@ -2,7 +2,6 @@
 
 import 'package:bot/Server/server.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import '../Structure/data_cleaner.dart';
@@ -58,7 +57,7 @@ class _ChatScreenState extends State<ChatScreen> {
     chatMessages.add(Message(
         isBot: 1,
         text:
-            "You can ask me about many things such as ....\n1.Admission process\n2.Documents Required\n3.Placements\n4.About college\n5.Branches available",
+            "Try asking about ....\n1.Admission process\n2.Documents Required\n3.Placements\n4.About college\n5.Branches available",
         avatar: false));
 
     super.initState();
@@ -206,8 +205,8 @@ class _ChatScreenState extends State<ChatScreen> {
                       } else if (controller.text.toString() == "4") {
                         enteredMessag = "Tell me something about itm ";
                       } else if (controller.text.toString() == "5") {
-                        enteredMessag =
-                            "What are the branches available in itm";
+                        enteredMessag = "Availible branches to take admission ";
+                      } else if (controller.text.toString().isEmpty) {
                       } else {
                         enteredMessag = controller.text.toString();
                       }
